@@ -1,7 +1,90 @@
 import React from "react";
+import { NavLink } from "react-router-dom";
+import { Container } from "../index";
 
 const Footer = () => {
-  return <div></div>;
+  const navLinks = [
+    {
+      name: "Home",
+      slug: "/",
+      active: true,
+    },
+    {
+      name: "About",
+      slug: "/about",
+      active: true,
+    },
+    {
+      name: "All Posts",
+      slug: "/all-posts",
+      // active: !authStatus,
+      active: false,
+    },
+    {
+      name: "Login",
+      slug: "/login",
+      // active: !authStatus,
+      active: true,
+    },
+    {
+      name: "Signup",
+      slug: "/Signup",
+      // active: !authStatus,
+      active: true,
+    },
+  ];
+
+  return (
+    <div>
+      <Container>
+        <div className=" py-12">
+          <div className="grid gap-20 md:grid-cols-3">
+            {/* Logo & Description */}
+            <div>
+              <h2 className="mb-3 text-2xl font-bold">
+                Blog<span className="text-green-700">App</span>
+              </h2>
+
+              <p className="text-sm leading-6 text-gray-600">
+                A modern blogging platform where ideas, stories, and knowledge
+                come together.
+              </p>
+            </div>
+
+            {/* Quick Links */}
+            <div>
+              <h3 className="mb-4 text-lg font-semibold">Quick Links</h3>
+
+              <ul className="space-y-2 text-gray-600">
+                {navLinks.map((link) => (
+                  <NavLink key={link.name} to={link.slug}>
+                    <li>{link.name}</li>
+                  </NavLink>
+                ))}
+              </ul>
+            </div>
+
+            {/* Connect */}
+            <div>
+              <h3 className="mb-4 text-lg font-semibold">Connect</h3>
+
+              <ul className="space-y-2 text-gray-600">
+                <li>Email</li>
+                <li>GitHub</li>
+                <li>LinkedIn</li>
+                <li>Twitter</li>
+              </ul>
+            </div>
+          </div>
+
+          {/* Bottom */}
+          <div className="mt-10 border-black/20 border-t pt-6 text-center text-sm text-gray-500">
+            © 2026 BlogApp. All rights reserved.
+          </div>
+        </div>
+      </Container>
+    </div>
+  );
 };
 
 export default Footer;

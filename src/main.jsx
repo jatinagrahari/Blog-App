@@ -3,12 +3,32 @@ import { createRoot } from "react-dom/client";
 import "./index.css";
 import App from "./App.jsx";
 import { store } from "./store/store.js";
+import { Layout } from "./components";
 import { Provider } from "react-redux";
+import {
+  createBrowserRouter,
+  createRoutesFromElements,
+  Route,
+  RouterProvider,
+} from "react-router-dom";
+import { About, AllPosts, Home, Signup, Login } from "./pages";
+
+const router = createBrowserRouter(
+  createRoutesFromElements(
+    <Route path="" element={<Layout />}>
+      <Route path="/" element={<Home />} />
+      <Route path="/about" element={<About />} />
+      <Route path="/signup" element={<Signup />} />
+      <Route path="/login" element={<Login />} />
+      <Route path="/all-posts" element={<AllPosts />} />
+    </Route>,
+  ),
+);
 
 createRoot(document.getElementById("root")).render(
   <StrictMode>
     <Provider store={store}>
-      <App />
+      <RouterProvider router={router} />
     </Provider>
   </StrictMode>,
 );

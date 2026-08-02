@@ -1,19 +1,12 @@
 import { useState } from "react";
-import reactLogo from "./assets/react.svg";
-import viteLogo from "./assets/vite.svg";
-import heroImg from "./assets/hero.png";
 import "./App.css";
+import { Header, Footer } from "./components";
+import { Home } from "./pages";
 
 function App() {
-  const [count, setCount] = useState(0);
+  // const [count, setCount] = useState(0);
 
-  return (
-    <>
-      <div className="">
-        <h1 className="">Hello Blog | JJ</h1>
-      </div>
-    </>
-  );
+  return <></>;
 }
 
 export default App;
