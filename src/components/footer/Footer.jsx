@@ -1,8 +1,11 @@
 import React from "react";
 import { NavLink } from "react-router-dom";
 import { Container } from "../index";
+import { useSelector } from "react-redux";
 
 const Footer = () => {
+  const authStatus = useSelector((state) => state.auth.status);
+
   const navLinks = [
     {
       name: "Home",
@@ -17,20 +20,17 @@ const Footer = () => {
     {
       name: "All Posts",
       slug: "/all-posts",
-      // active: !authStatus,
-      active: false,
+      active: authStatus,
     },
     {
       name: "Login",
       slug: "/login",
-      // active: !authStatus,
-      active: true,
+      active: !authStatus,
     },
     {
       name: "Signup",
       slug: "/Signup",
-      // active: !authStatus,
-      active: true,
+      active: !authStatus,
     },
   ];
 
@@ -56,11 +56,13 @@ const Footer = () => {
               <h3 className="mb-4 text-lg font-semibold">Quick Links</h3>
 
               <ul className="space-y-2 text-gray-600">
-                {navLinks.map((link) => (
-                  <NavLink key={link.name} to={link.slug}>
-                    <li>{link.name}</li>
-                  </NavLink>
-                ))}
+                {navLinks.map((link) =>
+                  link.active ? (
+                    <NavLink key={link.name} to={link.slug}>
+                      <li>{link.name}</li>
+                    </NavLink>
+                  ) : null,
+                )}
               </ul>
             </div>
 

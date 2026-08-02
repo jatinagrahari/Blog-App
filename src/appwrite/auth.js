@@ -21,7 +21,9 @@ export class AuthService {
         password,
         name,
       );
+      return user;
     } catch (error) {
+      throw error;
       console.log("Appwrite serive :: getCurrentUser :: error", error);
     }
   }
@@ -32,17 +34,18 @@ export class AuthService {
         email,
         password,
       );
+      return loginSession;
     } catch (error) {
       console.log("Appwrite serive :: getCurrentUser :: error", error);
-      return false;
+      throw error;
     }
   }
 
   async getCurrentUser() {
     try {
       const user = await this.account.get();
+      return user;
     } catch (error) {
-      console.log("Appwrite serive :: getCurrentUser :: error", error);
       return false;
     }
   }

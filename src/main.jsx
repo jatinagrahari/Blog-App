@@ -1,4 +1,4 @@
-import { StrictMode } from "react";
+import { StrictMode, useEffect } from "react";
 import { createRoot } from "react-dom/client";
 import "./index.css";
 import App from "./App.jsx";
@@ -15,7 +15,7 @@ import { About, AllPosts, Home, Signup, Login } from "./pages";
 
 const router = createBrowserRouter(
   createRoutesFromElements(
-    <Route path="" element={<Layout />}>
+    <Route element={<App />}>
       <Route path="/" element={<Home />} />
       <Route path="/about" element={<About />} />
       <Route path="/signup" element={<Signup />} />

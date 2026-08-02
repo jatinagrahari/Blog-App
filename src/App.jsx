@@ -1,12 +1,35 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import "./App.css";
-import { Header, Footer } from "./components";
-import { Home } from "./pages";
+import authService from "./appwrite/auth";
+import { useDispatch } from "react-redux";
+import { useNavigate } from "react-router-dom";
+import { login as authLogin, logout as authLogout } from "./store/authSlice";
+import { Layout } from "./components";
 
 function App() {
-  // const [count, setCount] = useState(0);
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
 
-  return <></>;
+  useEffect(() => {
+    const checkUser = async () => {
+      try {
+        let user = await authService.getCurrentUser();
+        if (user) {
+          dispatch(authLogin(user));
+        } else {
+          dispatch(authLogout());
+        }
+      } catch (error) {
+        return null;
+      }
+    };
+    checkUser();
+  }, []);
+  return (
+    <>
+      <Layout />
+    </>
+  );
 }
 
 export default App;

@@ -1,13 +1,17 @@
-import React from "react";
+import React, { useId } from "react";
 
-const Input = React.forwardRef(function Input({
-  label,
-  className,
-  type = "text",
-  placeholder,
+const Input = React.forwardRef(function Input(
+  {
+    label,
+    className,
+    type = "text",
+    placeholder,
+
+    ...props
+  },
   ref,
-  ...props
-}) {
+) {
+  const id = useId();
   return (
     <div className={`flex flex-col gap-2 ${className}`}>
       <label className="text-sm font-medium text-gray-700">{label}</label>
@@ -15,11 +19,13 @@ const Input = React.forwardRef(function Input({
       <input
         type={type}
         ref={ref}
+        id={id}
         placeholder={placeholder}
         className="
           w-full
           rounded-xl
           border
+          
           border-gray-300
           bg-white
           px-4
