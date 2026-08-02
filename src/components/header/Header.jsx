@@ -29,16 +29,6 @@ function Header() {
       slug: "/all-posts",
       active: authStatus,
     },
-    {
-      name: "Login",
-      slug: "/login",
-      active: !authStatus,
-    },
-    {
-      name: "Signup",
-      slug: "/Signup",
-      active: !authStatus,
-    },
   ];
 
   return (
@@ -47,9 +37,11 @@ function Header() {
         <div className=" flex items-center justify-between px-6 py-4">
           {/* Logo */}
           <div>
-            <h1 className="text-2xl font-bold">
-              Blog<span className="text-green-800">App</span>
-            </h1>
+            <NavLink to={"/"}>
+              <h1 className="text-2xl font-bold">
+                Blog<span className="text-green-800">App</span>
+              </h1>
+            </NavLink>
           </div>
 
           {/* Navigation */}
@@ -78,12 +70,21 @@ function Header() {
             {authStatus ? (
               <>
                 <Button children={"Create Post"} btnType={"secondary"} />
+                <Logout />
                 <div className="flex h-10 w-10 items-center justify-center rounded-full bg-gray-200 font-semibold">
                   {userName[0].toUpperCase()}
                 </div>
-                <Logout />
               </>
-            ) : null}
+            ) : (
+              <>
+                <NavLink to={"/login"}>
+                  <Button children={"Login"} btnType={"secondary"} />
+                </NavLink>
+                <NavLink to={"/signup"}>
+                  <Button children={"Sign Up"} btnType={"primary"} />
+                </NavLink>
+              </>
+            )}
           </div>
         </div>
       </Container>
