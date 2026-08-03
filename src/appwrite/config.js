@@ -11,23 +11,23 @@ export class Service {
       .setEndpoint(conf.appwriteURL)
       .setProject(conf.appwriteProjectId);
 
-    this.storage = new Storage();
-    this.tablesDb = new TablesDB();
+    this.storage = new Storage(this.client);
+    this.tablesDb = new TablesDB(this.client);
   }
 
-  async createPost({ title, content, slug, featuredImage, status, userID }) {
+  async createPost({ title, content, slug, featuredImage, status, userId }) {
     try {
-      await this.tablesDb.createRow(
+      return await this.tablesDb.createRow(
         conf.appwriteDatabaseId,
         conf.appwriteTableId,
-        ID.unique,
+        ID.unique(),
         {
           slug,
           title,
           content,
           featuredImage,
           status,
-          userID,
+          userId,
         },
       );
     } catch (error) {
@@ -38,7 +38,7 @@ export class Service {
 
   async getPost(id) {
     try {
-      await this.tablesDb.getRow(
+      return await this.tablesDb.getRow(
         conf.appwriteDatabaseId,
         conf.appwriteTableId,
         id,
@@ -49,9 +49,9 @@ export class Service {
     }
   }
 
-  async getActivePosts([queries = [Query.equal("status", "active")]]) {
+  async getActivePosts(queries = [Query.equal("status", "active")]) {
     try {
-      await this.tablesDb.getRows(
+      return await this.tablesDb.listRows(
         conf.appwriteDatabaseId,
         conf.appwriteTableId,
         queries,
@@ -110,9 +110,9 @@ export class Service {
     }
   }
 
-  async getFilePreview(fileId) {
+  getFilePreview(fileId) {
     try {
-      return await this.bucket.getFileView(conf.appwriteBucketId, fileId);
+      return this.storage.getFileView(conf.appwriteStorageId, fileId);
     } catch (error) {
       console.log("Appwrite serive :: getCurrentUser :: error", error);
       return false;
@@ -121,7 +121,8 @@ export class Service {
 
   async deleteFile(fileId) {
     try {
-      await this.bucket.deleteFile(conf.appwriteBucketId, fileId);
+      await this.storage.deleteFile(conf.appwriteStorageId, fileId);
+      return true;
     } catch (error) {
       console.log("Appwrite serive :: getCurrentUser :: error", error);
       return false;

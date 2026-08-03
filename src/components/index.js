@@ -8,6 +8,9 @@ import Logout from "./Logout";
 import Login from "./Login";
 import Signup from "./Signup";
 import AddPost from "./AddPost";
+import RTE from "./RTE";
+import Select from "./Select";
+import PostCard from "./PostCard";
 
 export {
   Header,
@@ -20,4 +23,7 @@ export {
   Login,
   Signup,
   AddPost,
+  RTE,
+  Select,
+  PostCard,
 };

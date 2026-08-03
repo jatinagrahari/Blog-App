@@ -1,20 +1,86 @@
-import React, { useState } from "react";
-import { Input, Button } from "./index";
+import React, { useCallback, useEffect, useState } from "react";
+import { Input, Button, RTE, Select } from "./index";
 import { useForm } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import AppwriteService from "../appwrite/config";
+import { useLocation } from "react-router-dom";
 
-const AddPost = ({ post }) => {
+const AddPost = () => {
   const dispatch = useDispatch();
-  const { register, handleSubmit } = useForm();
+  const location = useLocation();
+  const post = location.state?.post;
+  const user = useSelector((state) => state.auth.userData);
 
-  const submit = (data) => {
+  const navigate = useNavigate();
+
+  const { register, handleSubmit, watch, setValue, control, getValues } =
+    useForm({
+      defaultValues: {
+        title: post?.title || "",
+        slug: post?.slug || "",
+        content: post?.content || "",
+        status: post?.status || "",
+      },
+    });
+
+  const submit = async (data) => {
     if (post) {
+      const file = data.image[0]
+        ? await AppwriteService.uploadFile(data.image[0])
+        : null;
+      if (file) {
+        await AppwriteService.deleteFile(post.featuredImage);
+        const dbPost = await AppwriteService.updatePost(post.$id, {
+          ...data,
+          featuredImage: file ? file.$id : undefined,
+          if(dbPost) {
+            navigate(`/post/${dbPost.$id}`);
+          },
+        });
+      }
     } else {
-      console.log({ data });
+      const file = data.image[0]
+        ? await AppwriteService.uploadFile(data.image[0])
+        : null;
+      //   const uploadFile = await AppwriteService.uploadFile(file);
+
+      if (file) {
+        const fileId = file.$id;
+        data.featuredImage = fileId;
+        const createPost = await AppwriteService.createPost({
+          ...data,
+          userId: user.$id,
+        });
+        if (createPost) {
+          navigate(`/post/${createPost.$id}`);
+        }
+      }
     }
   };
+  // navigate(`/post/${id}`);
+
+  const slugTransform = useCallback((value) => {
+    if (value && typeof value == "string") {
+      const slug = value.toLowerCase().replace(/ /g, "-");
+      setValue("slug", slug);
+      return slug;
+
+      return "";
+    }
+  });
+
+  useEffect(() => {
+    const subscription = watch((value, { name }) => {
+      if (name === "title") {
+        setValue("slug", slugTransform(value.title, { shouldValidate: true }));
+      }
+    });
+
+    return () => {
+      subscription.unsubscribe();
+    };
+  }, [watch, setValue, slugTransform]);
 
   return (
     <div>
@@ -58,17 +124,22 @@ const AddPost = ({ post }) => {
                     required: true,
                   })}
                   css={"classic"}
+                  readOnly
                 />
               </div>
 
               {/* Content */}
               <div className="rounded-2xl border border-gray-200 bg-white p-6 shadow-sm">
                 <label className="mb-4 block text-sm font-semibold text-gray-700">
-                  Post Content
+                  Post Content :
                 </label>
 
-                <div className="h-[500px] rounded-xl border border-dashed border-gray-300 bg-gray-50 flex items-center justify-center text-gray-400">
-                  TinyMCE Editor Here
+                <div className="h-125 rounded-xl border border-dashed border-gray-300 bg-gray-50 flex items-center justify-center text-gray-400">
+                  <RTE
+                    name={"content"}
+                    control={control}
+                    defaultValue={getValues("content")}
+                  />
                 </div>
               </div>
             </div>
@@ -81,7 +152,7 @@ const AddPost = ({ post }) => {
                   className="absolute inset-0 z-10 h-full w-full opacity-0 cursor-pointer"
                   css={"file"}
                   type={"file"}
-                  {...register("featuredImage", {})}
+                  {...register("image", {})}
                   css={"classic"}
                 />
 
@@ -111,16 +182,13 @@ const AddPost = ({ post }) => {
               </div>
 
               {/* Status */}
-              {/* <div className="rounded-2xl border border-gray-200 bg-white p-6 shadow-sm">
-                <label className="mb-3 block text-sm font-semibold text-gray-700">
-                  Status
-                </label>
-
-                <select className="w-full rounded-xl border border-gray-300 px-4 py-3 outline-none transition focus:border-green-600 focus:ring-2 focus:ring-green-200">
-                  <option>Active</option>
-                  <option>Draft</option>
-                </select>
-              </div> */}
+              <div className="rounded-2xl  bg-white p-6 shadow-sm">
+                <Select
+                  label={"status"}
+                  options={["active", "Inactive"]}
+                  {...register("status", { required: true })}
+                />
+              </div>
 
               {/* Buttons */}
               <div className="rounded-2xl border border-gray-200 bg-white p-6 shadow-sm">
