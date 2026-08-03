@@ -64,6 +64,7 @@ const Login = () => {
                       ) || "Email address must be a valid address",
                   },
                 })}
+                css={"classic"}
               />
             </div>
 
@@ -76,6 +77,7 @@ const Login = () => {
                 {...register("password", {
                   required: true,
                 })}
+                css={"classic"}
               />
             </div>
             {/* <button

@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Button, Container, Logout } from "../index";
+import { Button, Container, Logout, AddPost } from "../index";
 import { NavLink, useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux";
 import { login as authLogin } from "../../store/authSlice";
@@ -69,7 +69,9 @@ function Header() {
           <div className="flex items-center gap-4">
             {authStatus ? (
               <>
-                <Button children={"Create Post"} btnType={"secondary"} />
+                <NavLink to={"/create-post"}>
+                  <Button children={"Create Post"} btnType={"secondary"} />
+                </NavLink>
                 <Logout />
                 <div className="flex h-10 w-10 items-center justify-center rounded-full bg-gray-200 font-semibold">
                   {userName[0].toUpperCase()}

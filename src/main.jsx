@@ -12,6 +12,7 @@ import {
   RouterProvider,
 } from "react-router-dom";
 import { About, AllPosts, Home, Signup, Login } from "./pages";
+import { AddPost } from "./components";
 
 const router = createBrowserRouter(
   createRoutesFromElements(
@@ -20,6 +21,8 @@ const router = createBrowserRouter(
       <Route path="/about" element={<About />} />
       <Route path="/signup" element={<Signup />} />
       <Route path="/login" element={<Login />} />
+      <Route path="/create-post" element={<AddPost />} />
+
       <Route path="/all-posts" element={<AllPosts />} />
     </Route>,
   ),

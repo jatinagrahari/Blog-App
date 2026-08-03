@@ -54,6 +54,7 @@ const Signup = ({ onComplete }) => {
             {...register("name", {
               required: true,
             })}
+            css={"classic"}
           />
 
           {/* Email */}
@@ -69,6 +70,7 @@ const Signup = ({ onComplete }) => {
                   "Email address must be a valid address",
               },
             })}
+            css={"classic"}
           />
 
           {/* Password */}
@@ -79,6 +81,7 @@ const Signup = ({ onComplete }) => {
             {...register("password", {
               required: true,
             })}
+            css={"classic"}
           />
 
           {/* Confirm Password */}

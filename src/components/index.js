@@ -7,6 +7,7 @@ import Input from "./Input ";
 import Logout from "./Logout";
 import Login from "./Login";
 import Signup from "./Signup";
+import AddPost from "./AddPost";
 
 export {
   Header,
@@ -18,4 +19,5 @@ export {
   Logout,
   Login,
   Signup,
+  AddPost,
 };
