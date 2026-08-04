@@ -71,17 +71,22 @@ const Footer = () => {
               <h3 className="mb-4 text-lg font-semibold">Connect</h3>
 
               <ul className="space-y-2 text-gray-600">
-                <li>Email</li>
-                <li>GitHub</li>
-                <li>LinkedIn</li>
-                <li>Twitter</li>
+                <a href="https://github.com/jatinagrahari" target="_blank">
+                  <li>GitHub</li>
+                </a>
+                <a href="https://linkedin.com/in/jatinagrahari" target="_blank">
+                  <li>LinkedIn</li>
+                </a>
+                <a href="https://jatinagrahari.com" target="_blank">
+                  <li>Portfolio</li>
+                </a>
               </ul>
             </div>
           </div>
 
           {/* Bottom */}
           <div className="mt-10 border-black/20 border-t pt-6 text-center text-sm text-gray-500">
-            © 2026 BlogApp. All rights reserved.
+            © 2026 BlogApp. Built with ❤️ by Jatin Agrahari.
           </div>
         </div>
       </Container>
