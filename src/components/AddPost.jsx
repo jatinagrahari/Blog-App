@@ -11,6 +11,8 @@ const AddPost = () => {
   const location = useLocation();
   const post = location.state?.post;
   const user = useSelector((state) => state.auth.userData);
+  const [filePreview, setFilePreview] = useState(null);
+  console.log(filePreview);
 
   const navigate = useNavigate();
 
@@ -154,6 +156,9 @@ const AddPost = () => {
                   type={"file"}
                   {...register("image", {})}
                   css={"classic"}
+                  onChange={(e) => {
+                    setFilePreview(e.target.files[0]);
+                  }}
                 />
 
                 <div className="absolute inset-0 flex flex-col items-center justify-center pointer-events-none">
