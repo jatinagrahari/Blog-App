@@ -12,7 +12,6 @@ const AddPost = () => {
   const post = location.state?.post;
   const user = useSelector((state) => state.auth.userData);
   const [filePreview, setFilePreview] = useState(null);
-  console.log(filePreview);
 
   const navigate = useNavigate();
 
@@ -22,7 +21,7 @@ const AddPost = () => {
         title: post?.title || "",
         slug: post?.slug || "",
         content: post?.content || "",
-        status: post?.status || "",
+        status: post?.status || "active",
       },
     });
 
@@ -149,48 +148,57 @@ const AddPost = () => {
             {/* Right */}
             <div className="space-y-6">
               {/* Featured Image */}
-              <div className="relative h-56 rounded-xl border-2 border-dashed border-gray-300 bg-gray-50 overflow-hidden">
-                <Input
-                  className="absolute inset-0 z-10 h-full w-full opacity-0 cursor-pointer"
-                  css={"file"}
-                  type={"file"}
-                  {...register("image", {})}
-                  css={"classic"}
+              <div className="relative h-56 overflow-hidden rounded-xl border-2 border-dashed border-gray-300 bg-gray-50 hover:border-green-600 transition">
+                <input
+                  type="file"
+                  accept="image/*"
+                  className="absolute inset-0 z-10 h-full w-full cursor-pointer opacity-0"
+                  {...register("image")}
                   onChange={(e) => {
-                    setFilePreview(e.target.files[0]);
+                    const file = e.target.files[0];
+                    const preview = file ? URL.createObjectURL(file) : null;
+                    setFilePreview(preview);
                   }}
                 />
 
-                <div className="absolute inset-0 flex flex-col items-center justify-center pointer-events-none">
-                  <svg
-                    className="mb-3 h-12 w-12 text-gray-400"
-                    fill="none"
-                    stroke="currentColor"
-                    strokeWidth="1.5"
-                    viewBox="0 0 24 24"
-                  >
-                    <path
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      d="M12 16V4m0 0l-4 4m4-4l4 4M4 20h16"
-                    />
-                  </svg>
+                {filePreview ? (
+                  <img
+                    src={filePreview}
+                    alt="Preview"
+                    className="h-full w-full object-cover"
+                  />
+                ) : (
+                  <div className="pointer-events-none absolute inset-0 flex flex-col items-center justify-center">
+                    <svg
+                      className="mb-3 h-12 w-12 text-gray-400"
+                      fill="none"
+                      stroke="currentColor"
+                      strokeWidth="1.5"
+                      viewBox="0 0 24 24"
+                    >
+                      <path
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        d="M12 16V4m0 0l-4 4m4-4l4 4M4 20h16"
+                      />
+                    </svg>
 
-                  <span className="mt-3 text-sm font-medium">
-                    Click to upload image
-                  </span>
+                    <span className="mt-2 text-sm font-medium">
+                      Click to upload image
+                    </span>
 
-                  <span className="text-xs text-gray-500">
-                    PNG, JPG up to 5MB
-                  </span>
-                </div>
+                    <span className="text-xs text-gray-500">
+                      PNG, JPG up to 5MB
+                    </span>
+                  </div>
+                )}
               </div>
 
               {/* Status */}
-              <div className="rounded-2xl  bg-white p-6 shadow-sm">
+              <div className="rounded-2xl border border-gray-200 bg-white p-5 shadow-sm">
                 <Select
-                  label={"status"}
-                  options={["active", "Inactive"]}
+                  label="Status"
+                  options={["active", "inactive"]}
                   {...register("status", { required: true })}
                 />
               </div>
@@ -215,6 +223,7 @@ const AddPost = () => {
                   <button
                     type="button"
                     className="w-full rounded-xl border border-red-200 py-3 font-semibold text-red-600 transition hover:bg-red-50"
+                    onClick={() => navigate("/")}
                   >
                     Cancel
                   </button>
