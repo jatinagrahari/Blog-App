@@ -16,7 +16,7 @@ const Home = () => {
   return (
     <main className="bg-gray-50">
       {/* Hero Section */}
-      <section className="border-b border-gray-200 bg-gradient-to-b from-white to-gray-50">
+      <section className="border-b border-gray-200 bg-linear-to-b from-white to-gray-50">
         <Container>
           <div className="mx-auto flex min-h-[80vh] max-w-7xl flex-col items-center justify-center text-center">
             <span className="rounded-full bg-green-100 px-4 py-2 text-sm font-medium text-green-700">

@@ -8,7 +8,7 @@ const PostCard = ({ $id, title, featuredImage }) => {
     <div>
       <article className="h-full overflow-hidden rounded-2xl border border-gray-200 bg-white shadow-sm transition hover:-translate-y-1 hover:shadow-xl">
         {/* Image */}
-        <div className="aspect-[16/10] overflow-hidden">
+        <div className="aspect-16/10 overflow-hidden">
           <img
             src={appwriteService.getFilePreview(featuredImage)}
             alt={title}
@@ -17,7 +17,7 @@ const PostCard = ({ $id, title, featuredImage }) => {
         </div>
 
         {/* Content */}
-        <div className="flex h-[170px] flex-col justify-between p-6">
+        <div className="flex h-42.5 flex-col justify-between p-6">
           <h2 className="text-2xl font-bold line-clamp-2">{title}</h2>
 
           <Link to={`/post/${$id}`}>

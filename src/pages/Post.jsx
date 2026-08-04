@@ -46,7 +46,7 @@ const Post = () => {
   }
 
   return (
-    <section className="bg-gradient-to-b from-gray-50 to-white py-20">
+    <section className="bg-linear-to-b from-gray-50 to-white py-20">
       <Container>
         <div className="mx-auto max-w-4xl">
           {/* Title */}
@@ -92,11 +92,11 @@ const Post = () => {
           </div>
 
           {/* Hero Image */}
-          <div className="mt-12 overflow-hidden rounded-[32px] shadow-xl">
+          <div className="mt-12 overflow-hidden rounded-4xl shadow-xl">
             <img
               src={AppwriteService.getFilePreview(post.featuredImage)}
               alt={post.title}
-              className="h-[450px] w-full object-cover transition duration-700 hover:scale-105"
+              className="h-112.5 w-full object-cover transition duration-700 hover:scale-105"
             />
           </div>
 
