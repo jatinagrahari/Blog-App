@@ -2,9 +2,11 @@ import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { Button, Container, PostCard } from "../components";
 import authService from "../appwrite/config";
+import { useSelector } from "react-redux";
 
 const Home = () => {
   const [posts, setPosts] = useState([]);
+  const userStatus = useSelector((state) => state.auth.status);
 
   useEffect(() => {
     authService.getActivePosts([]).then((posts) => {
@@ -36,11 +38,17 @@ const Home = () => {
             </p>
 
             <div className="mt-10 flex flex-wrap items-center justify-center gap-4">
-              <Link to="/all-posts">
-                <Button btnType="fullwBtn">Explore Articles</Button>
-              </Link>
+              {!userStatus ? (
+                <Link to="/signup">
+                  <Button btnType="fullwBtn">Get Started</Button>
+                </Link>
+              ) : (
+                <Link to="/all-posts">
+                  <Button btnType="fullwBtn">Explore Articles</Button>
+                </Link>
+              )}
 
-              <Link to="/add-post">
+              <Link to="/create-post">
                 <button className="rounded-xl border border-gray-300 bg-white px-6 py-3 font-medium text-gray-700 transition hover:bg-gray-100">
                   Write Your First Post
                 </button>
@@ -69,33 +77,71 @@ const Home = () => {
       </section>
 
       {/* Featured Posts */}
-      <section className="py-24">
-        <Container>
-          <div className="mb-14 flex items-center justify-between">
-            <div>
-              <h2 className="text-4xl font-bold text-gray-900">
-                Featured Posts
+
+      {!userStatus ? (
+        <section className="bg-gray-50 py-24">
+          <Container>
+            <div className="rounded-3xl border border-dashed border-gray-300 bg-white p-12 text-center shadow-sm">
+              <div className="mx-auto flex h-16 w-16 items-center justify-center rounded-full bg-green-100">
+                🔒
+              </div>
+
+              <h2 className="mt-6 text-3xl font-bold text-gray-900">
+                Featured Posts are for Members
               </h2>
 
-              <p className="mt-3 text-gray-500">
-                Discover some of the latest and most popular articles.
+              <p className="mx-auto mt-4 max-w-xl text-gray-500">
+                Sign in to explore hand-picked articles, tutorials, and
+                community highlights selected just for our members.
               </p>
-            </div>
 
-            <Link
-              to="/all-posts"
-              className="font-semibold text-green-600 hover:underline"
-            >
-              View All →
-            </Link>
-          </div>
-          <div className="grid grid-cols-1 gap-8 md:grid-cols-2 lg:grid-cols-3">
-            {posts.slice(0, 3).map((post) => (
-              <PostCard key={post.$id} {...post} />
-            ))}
-          </div>
-        </Container>
-      </section>
+              <div className="mt-8 flex justify-center gap-4">
+                <Link
+                  to="/login"
+                  className="rounded-xl bg-green-600 px-6 py-3 font-medium text-white hover:bg-green-700"
+                >
+                  Login
+                </Link>
+
+                <Link
+                  to="/signup"
+                  className="rounded-xl border border-gray-300 px-6 py-3 font-medium hover:bg-gray-100"
+                >
+                  Create Account
+                </Link>
+              </div>
+            </div>
+          </Container>
+        </section>
+      ) : (
+        <section className="py-24">
+          <Container>
+            <div className="mb-14 flex items-center justify-between">
+              <div>
+                <h2 className="text-4xl font-bold text-gray-900">
+                  Featured Posts
+                </h2>
+
+                <p className="mt-3 text-gray-500">
+                  Discover some of the latest and most popular articles.
+                </p>
+              </div>
+
+              <Link
+                to="/all-posts"
+                className="font-semibold text-green-600 hover:underline"
+              >
+                View All →
+              </Link>
+            </div>
+            <div className="grid grid-cols-1 gap-8 md:grid-cols-2 lg:grid-cols-3">
+              {posts.slice(0, 3).map((post) => (
+                <PostCard key={post.$id} {...post} />
+              ))}
+            </div>
+          </Container>
+        </section>
+      )}
 
       {/* Why Choose */}
       <section className="bg-white py-24">

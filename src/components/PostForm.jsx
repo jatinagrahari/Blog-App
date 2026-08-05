@@ -6,7 +6,7 @@ import { useDispatch, useSelector } from "react-redux";
 import AppwriteService from "../appwrite/config";
 import { useLocation } from "react-router-dom";
 
-const AddPost = () => {
+const PostForm = () => {
   const dispatch = useDispatch();
   const location = useLocation();
   const post = location.state?.post;
@@ -237,4 +237,4 @@ const AddPost = () => {
   );
 };
 
-export default AddPost;
+export default PostForm;

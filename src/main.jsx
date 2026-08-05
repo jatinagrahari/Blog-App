@@ -1,4 +1,4 @@
-import { StrictMode, useEffect } from "react";
+import { StrictMode } from "react";
 import { createRoot } from "react-dom/client";
 import "./index.css";
 import App from "./App.jsx";
@@ -11,20 +11,76 @@ import {
   Route,
   RouterProvider,
 } from "react-router-dom";
-import { About, AllPosts, Home, Signup, Login, Post } from "./pages";
-import { AddPost } from "./components";
+import {
+  About,
+  AllPosts,
+  Home,
+  Signup,
+  Login,
+  Post,
+  CreatePost,
+  EditPost,
+} from "./pages";
+import { AuthLayout } from "./components";
 
 const router = createBrowserRouter(
   createRoutesFromElements(
     <Route element={<App />}>
       <Route path="/" element={<Home />} />
       <Route path="/about" element={<About />} />
-      <Route path="/signup" element={<Signup />} />
-      <Route path="/login" element={<Login />} />
-      <Route path="/create-post" element={<AddPost />} />
 
-      <Route path="/all-posts" element={<AllPosts />} />
-      <Route path="/Post/:id" element={<Post />} />
+      <Route
+        path="/signup"
+        element={
+          <AuthLayout authentication={false}>
+            <Signup />
+          </AuthLayout>
+        }
+      />
+
+      <Route
+        path="/login"
+        element={
+          <AuthLayout authentication={false}>
+            <Login />
+          </AuthLayout>
+        }
+      />
+
+      <Route
+        path="/create-post"
+        element={
+          <AuthLayout authentication>
+            <CreatePost />
+          </AuthLayout>
+        }
+      />
+      <Route
+        path="/edit-post/:id"
+        element={
+          <AuthLayout authentication>
+            <EditPost />
+          </AuthLayout>
+        }
+      />
+
+      <Route
+        path="/all-posts"
+        element={
+          <AuthLayout authentication>
+            <AllPosts />
+          </AuthLayout>
+        }
+      />
+
+      <Route
+        path="/Post/:id"
+        element={
+          <AuthLayout authentication>
+            <Post />
+          </AuthLayout>
+        }
+      />
     </Route>,
   ),
 );

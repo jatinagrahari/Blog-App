@@ -73,7 +73,7 @@ const Post = () => {
                 <button
                   className="rounded-xl border border-gray-300 bg-white px-5 py-2 font-medium text-gray-700 transition hover:bg-gray-100"
                   onClick={() =>
-                    navigate("/create-post", {
+                    navigate(`/edit-post/${post.$id}`, {
                       state: { post },
                     })
                   }
