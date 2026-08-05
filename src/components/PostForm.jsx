@@ -1,15 +1,12 @@
 import React, { useCallback, useEffect, useState } from "react";
 import { Input, Button, RTE, Select } from "./index";
 import { useForm } from "react-hook-form";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import AppwriteService from "../appwrite/config";
-import { useLocation } from "react-router-dom";
 
-const PostForm = () => {
+const PostForm = ({ post }) => {
   const dispatch = useDispatch();
-  const location = useLocation();
-  const post = location.state?.post;
   const user = useSelector((state) => state.auth.userData);
   const [filePreview, setFilePreview] = useState(null);
 
@@ -59,7 +56,6 @@ const PostForm = () => {
       }
     }
   };
-  // navigate(`/post/${id}`);
 
   const slugTransform = useCallback((value) => {
     if (value && typeof value == "string") {

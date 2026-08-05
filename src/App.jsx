@@ -4,11 +4,12 @@ import authService from "./appwrite/auth";
 import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { login as authLogin, logout as authLogout } from "./store/authSlice";
-import { Layout } from "./components";
+import { Layout, LoadingScreen } from "./components";
 
 function App() {
   const navigate = useNavigate();
   const dispatch = useDispatch();
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     const checkUser = async () => {
@@ -24,7 +25,11 @@ function App() {
       }
     };
     checkUser();
+    checkUser().finally(() => setLoading(false));
   }, []);
+  if (loading) {
+    return <LoadingScreen />;
+  }
   return (
     <>
       <Layout />

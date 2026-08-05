@@ -5,3 +5,13 @@
 @theme {
   --font-body: "DM Sans", sans-serif;
 }
+
+@keyframes loading {
+  0% {
+    transform: translateX(-120%);
+  }
+
+  100% {
+    transform: translateX(350%);
+  }
+}

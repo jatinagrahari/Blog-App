@@ -12,6 +12,7 @@ import RTE from "./RTE";
 import Select from "./Select";
 import PostCard from "./PostCard";
 import AuthLayout from "./AuthLayout";
+import LoadingScreen from "./LoadingScreen";
 
 export {
   Header,
@@ -28,4 +29,5 @@ export {
   Select,
   PostCard,
   AuthLayout,
+  LoadingScreen,
 };

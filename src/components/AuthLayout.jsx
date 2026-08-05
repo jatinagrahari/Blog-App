@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
+import { LoadingScreen } from "./index";
 
 const AuthLayout = ({ children, authentication = true }) => {
   const [loader, setLoader] = useState(true);
@@ -16,7 +17,7 @@ const AuthLayout = ({ children, authentication = true }) => {
     setLoader(false);
   }, [navigate, authStatus, authentication]);
 
-  return loader ? <h1>Loading...</h1> : <>{children};</>;
+  return loader ? <LoadingScreen /> : <>{children};</>;
 };
 
 export default AuthLayout;
