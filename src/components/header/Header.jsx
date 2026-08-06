@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { Button, Container, Logout, PostForm } from "../index";
 import { NavLink, useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux";
@@ -6,6 +6,22 @@ import { login as authLogin } from "../../store/authSlice";
 
 function Header() {
   const authStatus = useSelector((state) => state.auth.status);
+  const [open, setisOpen] = useState(false);
+  const menuRef = useRef();
+
+  useEffect(() => {
+    function handleClick(e) {
+      if (menuRef.current && !menuRef.current.contains(e.target)) {
+        setisOpen(false);
+      }
+    }
+    document.addEventListener("mousedown", handleClick);
+
+    return () => {
+      document.removeEventListener("mousedown", handleClick);
+    };
+  }, []);
+  console.log(open);
 
   const userName = useSelector((state) =>
     state.auth.userData ? state.auth.userData.name : null,
@@ -73,8 +89,28 @@ function Header() {
                   <Button children={"Create Post"} btnType={"secondary"} />
                 </NavLink>
                 <Logout />
-                <div className="flex h-10 w-10 items-center justify-center rounded-full bg-gray-200 font-semibold">
-                  {userName[0].toUpperCase()}
+                <div className="relative">
+                  <button onClick={() => setisOpen(!open)} ref={menuRef}>
+                    <div className="flex h-10 w-10 items-center justify-center rounded-full bg-gray-200 font-semibold  cursor-pointer">
+                      <div className="">{userName[0].toUpperCase()}</div>
+                    </div>
+                  </button>
+
+                  <div
+                    className={`absolute top-full right-0 mt-2 w-56 rounded-2xl bg-black/20 text-black/80 font-semibold transition-all duration-300 shadow-xl border border-gray-200
+                       ${
+                         open
+                           ? "opacity-100 visible translate-y-0"
+                           : "opacity-0 invisible -translate-y-2"
+                       }`}
+                  >
+                    <div className="flex flex-col gap-4 items-center rounded-lg px-3 py-4  transition ">
+                      <NavLink className={"hover:text-black"} to={"/user/:id"}>
+                        Profile
+                      </NavLink>
+                      <Logout />
+                    </div>
+                  </div>
                 </div>
               </>
             ) : (
