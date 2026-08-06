@@ -13,6 +13,7 @@ import Select from "./Select";
 import PostCard from "./PostCard";
 import AuthLayout from "./AuthLayout";
 import LoadingScreen from "./LoadingScreen";
+import Profile from "./Profile";
 
 export {
   Header,
@@ -30,4 +31,5 @@ export {
   PostCard,
   AuthLayout,
   LoadingScreen,
+  Profile,
 };

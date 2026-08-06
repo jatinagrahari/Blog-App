@@ -6,5 +6,16 @@ import Login from "./Login";
 import Post from "./Post";
 import CreatePost from "./CreatePost";
 import EditPost from "./EditPost";
+import UserDashboard from "./UserDashboard";
 
-export { Home, About, AllPosts, Signup, Login, Post, CreatePost, EditPost };
+export {
+  Home,
+  About,
+  AllPosts,
+  Signup,
+  Login,
+  Post,
+  CreatePost,
+  EditPost,
+  UserDashboard,
+};

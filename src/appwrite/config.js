@@ -62,6 +62,18 @@ export class Service {
     }
   }
 
+  async getPosts() {
+    try {
+      return await this.tablesDb.listRows(
+        conf.appwriteDatabaseId,
+        conf.appwriteTableId,
+      );
+    } catch (error) {
+      console.log("Appwrite serive :: getCurrentUser :: error", error);
+      return false;
+    }
+  }
+
   async updatePost(id, { title, content, featuredImage, slug, status }) {
     try {
       await this.tablesDb.updateRow(

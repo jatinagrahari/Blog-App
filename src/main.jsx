@@ -20,6 +20,7 @@ import {
   Post,
   CreatePost,
   EditPost,
+  UserDashboard,
 } from "./pages";
 import { AuthLayout } from "./components";
 
@@ -78,6 +79,15 @@ const router = createBrowserRouter(
         element={
           <AuthLayout authentication>
             <Post />
+          </AuthLayout>
+        }
+      />
+
+      <Route
+        path="/user/:id"
+        element={
+          <AuthLayout authentication>
+            <UserDashboard />
           </AuthLayout>
         }
       />

@@ -7,7 +7,6 @@ import appwriteService from "../appwrite/config";
 const EditPost = () => {
   const [post, setPost] = useState(null);
   const id = useParams();
-  // console.log(id.id);
 
   useEffect(() => {
     appwriteService.getPost(id.id).then((e) => {

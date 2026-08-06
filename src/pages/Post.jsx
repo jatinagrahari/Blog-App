@@ -1,15 +1,13 @@
 import React, { useEffect, useState } from "react";
 import AppwriteService from "../appwrite/config";
 import { useSelector } from "react-redux";
-import { Container } from "../components";
+import { Container, LoadingScreen } from "../components";
 import parse from "html-react-parser";
 import { Link, useNavigate, useParams } from "react-router-dom";
 
 const Post = () => {
   const [post, setPost] = useState(null);
-
   const userData = useSelector((state) => state.auth.userData);
-
   const navigate = useNavigate();
   const { id } = useParams();
 
@@ -34,15 +32,7 @@ const Post = () => {
   };
 
   if (!post) {
-    return (
-      <Container>
-        <div className="flex min-h-[70vh] items-center justify-center">
-          <h2 className="text-2xl font-semibold text-gray-500">
-            Loading article...
-          </h2>
-        </div>
-      </Container>
-    );
+    return <LoadingScreen />;
   }
 
   return (

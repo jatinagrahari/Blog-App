@@ -8,6 +8,7 @@ function Header() {
   const authStatus = useSelector((state) => state.auth.status);
   const [open, setisOpen] = useState(false);
   const menuRef = useRef();
+  const user = useSelector((state) => state.auth.userData);
 
   useEffect(() => {
     function handleClick(e) {
@@ -21,7 +22,6 @@ function Header() {
       document.removeEventListener("mousedown", handleClick);
     };
   }, []);
-  console.log(open);
 
   const userName = useSelector((state) =>
     state.auth.userData ? state.auth.userData.name : null,
@@ -105,7 +105,10 @@ function Header() {
                        }`}
                   >
                     <div className="flex flex-col gap-4 items-center rounded-lg px-3 py-4  transition ">
-                      <NavLink className={"hover:text-black"} to={"/user/:id"}>
+                      <NavLink
+                        className={"hover:text-black"}
+                        to={`/user/${user.$id}`}
+                      >
                         Profile
                       </NavLink>
                       <Logout />

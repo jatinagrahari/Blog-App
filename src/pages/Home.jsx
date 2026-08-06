@@ -2,19 +2,23 @@ import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { Button, Container, PostCard } from "../components";
 import authService from "../appwrite/config";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import { setError, setPosts as setPostsInStore } from "../store/postsSlice";
 
 const Home = () => {
-  const [posts, setPosts] = useState([]);
   const userStatus = useSelector((state) => state.auth.status);
+  const dispatch = useDispatch();
+  const allPosts = useSelector((state) => state.posts.allPosts);
 
   useEffect(() => {
-    authService.getActivePosts([]).then((posts) => {
-      if (posts) {
-        setPosts(posts.rows);
-      }
-    });
+    authService
+      .getPosts()
+      .then((posts) => {
+        dispatch(setPostsInStore(posts.rows));
+      })
+      .catch((error) => dispatch(setError(error.message)));
   }, []);
+
   return (
     <main className="bg-gray-50">
       {/* Hero Section */}
@@ -135,7 +139,7 @@ const Home = () => {
               </Link>
             </div>
             <div className="grid grid-cols-1 gap-8 md:grid-cols-2 lg:grid-cols-3">
-              {posts.slice(0, 3).map((post) => (
+              {allPosts.slice(0, 3).map((post) => (
                 <PostCard key={post.$id} {...post} />
               ))}
             </div>
