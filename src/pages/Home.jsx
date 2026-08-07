@@ -24,26 +24,26 @@ const Home = () => {
       {/* Hero Section */}
       <section className="border-b border-gray-200 bg-linear-to-b from-white to-gray-50">
         <Container>
-          <div className="mx-auto flex min-h-[80vh] max-w-7xl flex-col items-center justify-center text-center">
-            <span className="rounded-full bg-green-100 px-4 py-2 text-sm font-medium text-green-700">
+          <div className="mx-auto flex min-h-[70vh] max-w-7xl flex-col items-center justify-center px-4 py-12 text-center md:min-h-[80vh] md:py-0">
+            <span className="rounded-full bg-green-100 px-3 py-2 text-xs font-medium text-green-700 sm:px-4 sm:text-sm">
               🚀 Share Ideas • Read Stories • Inspire Others
             </span>
 
-            <h1 className="mt-8 max-w-4xl text-5xl font-extrabold leading-tight text-gray-900 md:text-7xl">
+            <h1 className="mt-6 max-w-4xl text-4xl font-extrabold leading-tight text-gray-900 sm:text-5xl md:mt-8 md:text-7xl">
               Publish Your Ideas,
               <br />
               <span className="text-green-600">One Story at a Time.</span>
             </h1>
 
-            <p className="mt-8 max-w-2xl text-lg leading-8 text-gray-600">
+            <p className="mt-6 max-w-2xl text-base leading-7 text-gray-600 md:mt-8 md:text-lg md:leading-8">
               A modern blogging platform where you can write beautiful articles,
               upload images, manage your posts and share your knowledge with the
               world.
             </p>
 
-            <div className="mt-10 flex flex-wrap items-center justify-center gap-4">
+            <div className="mt-8 flex  flex-col gap-3 sm:w-auto sm:flex-row sm:justify-center md:mt-10">
               {!userStatus ? (
-                <Link to="/signup">
+                <Link to="/signup" className="">
                   <Button btnType="fullwBtn">Get Started</Button>
                 </Link>
               ) : (
@@ -53,14 +53,14 @@ const Home = () => {
               )}
 
               <Link to="/create-post">
-                <button className="rounded-xl border border-gray-300 bg-white px-6 py-3 font-medium text-gray-700 transition hover:bg-gray-100">
+                <button className="rounded-xl border border-gray-300 bg-white px-6 py-3 font-medium text-gray-700 transition hover:bg-gray-100 cursor-pointer">
                   Write Your First Post
                 </button>
               </Link>
             </div>
 
             {/* Stats */}
-            <div className="mt-20 grid w-full max-w-3xl grid-cols-3 gap-6">
+            {/* <div className="mt-14 grid w-full max-w-3xl grid-cols-1 gap-4 sm:grid-cols-3 sm:gap-6 md:mt-20">
               <div className="rounded-2xl bg-white p-6 shadow-sm">
                 <h2 className="text-3xl font-bold text-gray-900">100+</h2>
                 <p className="mt-2 text-gray-500">Articles</p>
@@ -75,7 +75,7 @@ const Home = () => {
                 <h2 className="text-3xl font-bold text-gray-900">10K+</h2>
                 <p className="mt-2 text-gray-500">Readers</p>
               </div>
-            </div>
+            </div> */}
           </div>
         </Container>
       </section>
@@ -83,18 +83,18 @@ const Home = () => {
       {/* Featured Posts */}
 
       {!userStatus ? (
-        <section className="bg-gray-50 py-24">
+        <section className="bg-gray-50 py-16 md:py-24">
           <Container>
-            <div className="rounded-3xl border border-dashed border-gray-300 bg-white p-12 text-center shadow-sm">
+            <div className="rounded-3xl border border-dashed border-gray-300 bg-white p-6 md:p-12 text-center shadow-sm">
               <div className="mx-auto flex h-16 w-16 items-center justify-center rounded-full bg-green-100">
                 🔒
               </div>
 
-              <h2 className="mt-6 text-3xl font-bold text-gray-900">
+              <h2 className="mt-6 text-2xl md:text-3xl font-bold text-gray-900">
                 Featured Posts are for Members
               </h2>
 
-              <p className="mx-auto mt-4 max-w-xl text-gray-500">
+              <p className="mx-auto mt-4 max-w-xl text-gray-500 text-sm md:text-base">
                 Sign in to explore hand-picked articles, tutorials, and
                 community highlights selected just for our members.
               </p>
@@ -118,33 +118,34 @@ const Home = () => {
           </Container>
         </section>
       ) : (
-        <section className="py-24">
-          <Container>
-            <div className="mb-14 flex items-center justify-between">
+        <Container>
+          <section className="py-14 md:py-24">
+            <div className="mb-10 flex flex-col gap-4 md:mb-14 md:flex-row md:items-center md:justify-between">
               <div>
-                <h2 className="text-4xl font-bold text-gray-900">
+                <h2 className="text-3xl font-bold text-gray-900 md:text-4xl">
                   Featured Posts
                 </h2>
 
-                <p className="mt-3 text-gray-500">
+                <p className="mt-2 text-sm text-gray-500 md:mt-3 md:text-base">
                   Discover some of the latest and most popular articles.
                 </p>
               </div>
 
               <Link
                 to="/all-posts"
-                className="font-semibold text-green-600 hover:underline"
+                className="self-start font-semibold text-green-600 hover:underline md:self-auto"
               >
                 View All →
               </Link>
             </div>
-            <div className="grid grid-cols-1 gap-8 md:grid-cols-2 lg:grid-cols-3">
+
+            <div className="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3 lg:gap-8">
               {allPosts.slice(0, 3).map((post) => (
                 <PostCard key={post.$id} {...post} />
               ))}
             </div>
-          </Container>
-        </section>
+          </section>
+        </Container>
       )}
 
       {/* Why Choose */}

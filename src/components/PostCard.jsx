@@ -17,8 +17,10 @@ const PostCard = ({ $id, title, featuredImage }) => {
         </div>
 
         {/* Content */}
-        <div className="flex h-42.5 flex-col justify-between p-6">
-          <h2 className="text-2xl font-bold line-clamp-2">{title}</h2>
+        <div className="flex min-h-32.5 flex-col justify-between p-4 sm:min-h-42.5 sm:p-6">
+          <h2 className="line-clamp-2 text-xl font-bold sm:text-2xl">
+            {title}
+          </h2>
 
           <Link to={`/post/${$id}`}>
             <Button btnType="fullwBtn">Read More →</Button>
