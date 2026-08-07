@@ -14,7 +14,7 @@ function Header() {
   const userName = useSelector((state) =>
     state.auth.userData ? state.auth.userData.name : null,
   );
-  // const [navMenu, setNavMenu] = useState(false);
+  console.log(open);
 
   useEffect(() => {
     function handleClick(e) {
@@ -124,7 +124,7 @@ function Header() {
                     <Button children={"Create Post"} btnType={"secondary"} />
                   </NavLink>
                   <div className="relative">
-                    <button onClick={() => setisOpen(!open)} ref={menuRef}>
+                    <button onClick={() => setisOpen((prev) => !prev)}>
                       <div className="flex h-10 w-10 items-center justify-center rounded-full bg-gray-200 font-semibold  cursor-pointer">
                         <div className="">{userName[0].toUpperCase()}</div>
                       </div>

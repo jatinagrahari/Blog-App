@@ -13,7 +13,6 @@ import Select from "./Select";
 import PostCard from "./PostCard";
 import AuthLayout from "./AuthLayout";
 import LoadingScreen from "./LoadingScreen";
-
 import AccountSection from "./userDashboardSections/AccountSection";
 import PostSection from "./userDashboardSections/PostSection";
 import ProfileSection from "./userDashboardSections/ProfileSection";
