@@ -41,28 +41,30 @@ const AccountSection = ({ id, allPosts }) => {
       {loader ? (
         <LoadingScreen />
       ) : (
-        <section className="mt-14">
+        <section className="mt-6 md:mt-10">
           {showDeleteModal && (
-            <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50 backdrop-blur-sm">
-              <div className="w-full max-w-md rounded-2xl bg-white p-8 shadow-xl">
-                <h2 className="text-2xl font-bold">Delete Account?</h2>
+            <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50 p-4 backdrop-blur-sm">
+              <div className="w-full max-w-md rounded-2xl bg-white p-6 shadow-xl md:p-8">
+                <h2 className="text-xl font-bold md:text-2xl">
+                  Delete Account?
+                </h2>
 
-                <p className="mt-3 text-gray-600">
+                <p className="mt-3 text-sm leading-6 text-gray-600 md:text-base">
                   This action cannot be undone. All of your posts and account
                   data will be permanently deleted.
                 </p>
 
-                <div className="mt-8 flex justify-end gap-3">
+                <div className="mt-8 flex flex-col-reverse gap-3 sm:flex-row sm:justify-end">
                   <button
-                    onClick={() => setShowDeleteModal(false)}
-                    className="rounded-xl border px-5 py-2"
+                    onClick={() => setshowDeleteModal(false)}
+                    className="w-full rounded-xl border border-gray-300 px-5 py-3 transition hover:bg-gray-50 sm:w-auto"
                   >
                     Cancel
                   </button>
 
                   <button
-                    className="rounded-xl bg-red-600 px-5 py-2 text-white"
                     onClick={handleDelete}
+                    className="w-full rounded-xl bg-red-600 px-5 py-3 text-white transition hover:bg-red-700 sm:w-auto"
                   >
                     Delete
                   </button>
@@ -70,17 +72,24 @@ const AccountSection = ({ id, allPosts }) => {
               </div>
             </div>
           )}
-          <h2 className="text-2xl font-bold text-gray-900">Account Settings</h2>
 
-          <div className="mt-8 space-y-4 rounded-2xl border border-gray-200 bg-white p-8 shadow-sm">
-            {/* <button className="w-full rounded-xl border px-5 py-3 text-left hover:bg-gray-50">
-          Change Password
-        </button> */}
-            <h2 className="font-bold text-xl">Delete your Account </h2>
+          <h2 className="text-xl font-bold text-gray-900 md:text-2xl">
+            Account Settings
+          </h2>
+
+          <div className="mt-6 rounded-2xl border border-gray-200 bg-white p-5 shadow-sm md:mt-8 md:p-8">
+            <h3 className="text-lg font-semibold md:text-xl">
+              Delete your Account
+            </h3>
+
+            <p className="mt-2 text-sm leading-6 text-gray-500">
+              Permanently remove your posts and submit an account deletion
+              request. This action cannot be undone.
+            </p>
 
             <button
-              className="w-full rounded-xl border border-red-200 px-5 py-3 text-left text-red-600 hover:bg-red-50"
               onClick={() => setshowDeleteModal(true)}
+              className="mt-6 w-full rounded-xl border border-red-200 px-5 py-3 text-left text-red-600 transition hover:bg-red-50"
             >
               Delete Account
             </button>

@@ -33,24 +33,27 @@ const UserDashboard = () => {
   };
 
   return (
-    <section className="h-screen bg-gray-50 py-6">
+    <section className="bg-gray-50 py-4 md:py-6">
       <Container>
         <div className="flex h-[calc(100vh-100px)] flex-col overflow-hidden rounded-3xl border border-gray-200 bg-white shadow-sm">
           {/* Header */}
-          <div className="border-b border-gray-200 px-8 py-6">
-            <h1 className="text-3xl font-bold text-gray-900">Dashboard</h1>
+          <div className="border-b border-gray-200 px-5 py-5 md:px-8 md:py-6">
+            <h1 className="text-2xl font-bold text-gray-900 md:text-3xl">
+              Dashboard
+            </h1>
 
-            <p className="mt-2 text-gray-500">
+            <p className="mt-2 text-sm text-gray-500 md:text-base">
               Welcome back, {user.name}. Manage your blog from one place.
             </p>
           </div>
 
           {/* Body */}
-          <div className="grid flex-1 grid-cols-12 overflow-hidden">
+          <div className="flex flex-1 flex-col overflow-hidden lg:grid lg:grid-cols-12">
             {/* Sidebar */}
-            <aside className="col-span-3 h-full border-r border-gray-200 bg-gray-50 p-6">
-              <div className="mb-8 flex items-center gap-4">
-                <div className="flex h-16 w-16 items-center justify-center rounded-full bg-green-600 text-2xl font-bold text-white">
+            <aside className="border-b border-gray-200 bg-gray-50 p-4 lg:col-span-3 lg:h-full lg:border-b-0 lg:border-r lg:p-6">
+              {/* User */}
+              <div className="mb-6 flex items-center gap-4">
+                <div className="flex h-14 w-14 items-center justify-center rounded-full bg-green-600 text-xl font-bold text-white md:h-16 md:w-16 md:text-2xl">
                   {user.name[0].toUpperCase()}
                 </div>
 
@@ -59,52 +62,53 @@ const UserDashboard = () => {
                 </div>
               </div>
 
-              <nav className="space-y-3">
+              {/* Navigation */}
+              <nav className="flex gap-2 overflow-x-auto lg:block lg:space-y-3 lg:overflow-visible">
                 <button
                   onClick={() => setActiveTab("profile")}
-                  className={`flex w-full cursor-pointer items-center gap-3 rounded-xl px-4 py-3 font-medium transition ${
+                  className={`flex shrink-0 cursor-pointer items-center gap-2 rounded-xl px-4 py-3 font-medium transition lg:w-full ${
                     activeTab === "profile"
                       ? "bg-green-600 text-white"
                       : "text-gray-700 hover:bg-gray-100"
                   }`}
                 >
                   <User size={18} />
-                  Profile
+                  <span>Profile</span>
                 </button>
 
                 <button
                   onClick={() => setActiveTab("post")}
-                  className={`flex w-full cursor-pointer items-center gap-3 rounded-xl px-4 py-3 font-medium transition ${
+                  className={`flex shrink-0 cursor-pointer items-center gap-2 rounded-xl px-4 py-3 font-medium transition lg:w-full ${
                     activeTab === "post"
                       ? "bg-green-600 text-white"
                       : "text-gray-700 hover:bg-gray-100"
                   }`}
                 >
                   <FileText size={18} />
-                  My Posts
+                  <span>My Posts</span>
                 </button>
 
                 <button
                   onClick={() => setActiveTab("account")}
-                  className={`flex w-full cursor-pointer items-center gap-3 rounded-xl px-4 py-3 font-medium transition ${
+                  className={`flex shrink-0 cursor-pointer items-center gap-2 rounded-xl px-4 py-3 font-medium transition lg:w-full ${
                     activeTab === "account"
                       ? "bg-green-600 text-white"
                       : "text-gray-700 hover:bg-gray-100"
                   }`}
                 >
                   <Settings size={18} />
-                  Account
+                  <span>Account</span>
                 </button>
 
-                <button className="mt-10 flex w-full cursor-pointer items-center gap-3 rounded-xl px-4 py-3 font-medium text-red-600 transition hover:bg-red-50">
+                <button className="flex shrink-0 cursor-pointer items-center gap-2 rounded-xl px-4 py-3 font-medium text-red-600 transition hover:bg-red-50 lg:mt-10 lg:w-full">
                   <LogOut size={18} />
-                  Logout
+                  <span>Logout</span>
                 </button>
               </nav>
             </aside>
 
             {/* Main Content */}
-            <main className="col-span-9 h-full overflow-y-auto p-8">
+            <main className="flex-1 overflow-y-auto p-4 md:p-6 lg:col-span-9 lg:p-8">
               {sections[activeTab]}
             </main>
           </div>
