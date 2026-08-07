@@ -49,6 +49,18 @@ export class Service {
     }
   }
 
+  async userPosts(userId) {
+    try {
+      return await this.tablesDb.listRows(
+        conf.appwriteDatabaseId,
+        conf.appwriteTableId,
+        [Query.equal("userId", userId)],
+      );
+    } catch (error) {
+      throw error;
+    }
+  }
+
   async getActivePosts(queries = [Query.equal("status", "active")]) {
     try {
       return await this.tablesDb.listRows(

@@ -1,16 +1,23 @@
 import React, { useEffect, useState } from "react";
 import { PostCard, Container } from "../components";
 import authService from "../appwrite/config";
+import { useDispatch, useSelector } from "react-redux";
+import { setError, setPosts } from "../store/postsSlice";
 
 const AllPosts = () => {
-  const [posts, setPosts] = useState([]);
+  const dispatch = useDispatch();
+  const user = useSelector((state) => state.auth.userData);
+  const allPosts = useSelector((state) => state.posts.allPosts);
 
   useEffect(() => {
-    authService.getActivePosts([]).then((posts) => {
-      if (posts) {
-        setPosts(posts.rows);
-      }
-    });
+    authService
+      .userPosts(user.$id)
+      .then((posts) => {
+        if (posts) {
+          dispatch(setPosts(posts.rows));
+        }
+      })
+      .catch((error) => dispatch(setError(error.message)));
   }, []);
 
   return (
@@ -60,7 +67,7 @@ const AllPosts = () => {
 
             <div className="grid gap-8 sm:grid-cols-2 lg:grid-cols-3">
               {/* Card */}
-              {posts.map((post) => (
+              {allPosts.map((post) => (
                 <div key={post.$id}>
                   <PostCard {...post} />
                 </div>

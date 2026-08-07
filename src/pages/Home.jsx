@@ -8,13 +8,15 @@ import { LogOut } from "lucide-react";
 
 const Home = () => {
   const userStatus = useSelector((state) => state.auth.status);
+  const user = useSelector((state) => state.auth.userData);
   const dispatch = useDispatch();
   const allPosts = useSelector((state) => state.posts.allPosts);
   const [message, setMessage] = useState(null);
+  // const isAuthor = post && userData ? post.userId === userData.$id : false;
 
   useEffect(() => {
     authService
-      .getPosts()
+      .userPosts(user.$id)
       .then((posts) => {
         if (posts) {
           dispatch(setPosts(posts.rows));
