@@ -5,11 +5,10 @@ import { useNavigate, useParams } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import AppwriteService from "../appwrite/config";
 
-const PostForm = ({ post }) => {
+const PostForm = ({ post, onSubmitForm }) => {
   const dispatch = useDispatch();
   const user = useSelector((state) => state.auth.userData);
   const [filePreview, setFilePreview] = useState(null);
-
   const navigate = useNavigate();
 
   const { register, handleSubmit, watch, setValue, control, getValues } =
@@ -51,6 +50,7 @@ const PostForm = ({ post }) => {
           userId: user.$id,
         });
         if (createPost) {
+          await onSubmitForm();
           navigate(`/post/${createPost.$id}`);
         }
       }
