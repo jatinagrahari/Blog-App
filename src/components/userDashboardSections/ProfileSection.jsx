@@ -13,7 +13,7 @@ const ProfileSection = ({ postCount, name, email, createdAt, logo }) => {
           </div>
 
           <div className="min-w-0">
-            <h3 className="break-words text-xl font-semibold text-gray-900">
+            <h3 className="wrap-break-words text-xl font-semibold text-gray-900">
               {name}
             </h3>
 
