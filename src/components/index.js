@@ -14,6 +14,9 @@ import PostCard from "./PostCard";
 import AuthLayout from "./AuthLayout";
 import LoadingScreen from "./LoadingScreen";
 import Profile from "./Profile";
+import AccountSection from "./userDashboardSections/AccountSection";
+import PostSection from "./userDashboardSections/PostSection";
+import ProfileSection from "./userDashboardSections/ProfileSection";
 
 export {
   Header,
@@ -32,4 +35,7 @@ export {
   AuthLayout,
   LoadingScreen,
   Profile,
+  AccountSection,
+  PostSection,
+  ProfileSection,
 };

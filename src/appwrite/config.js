@@ -74,9 +74,28 @@ export class Service {
     }
   }
 
+  async createDelete({ title, deleteRequested, deleteRequestedAt, userId }) {
+    try {
+      return await this.tablesDb.createRow(
+        conf.appwriteDatabaseId,
+        conf.appwriteTableId,
+        ID.unique(),
+        {
+          title,
+          deleteRequested,
+          deleteRequestedAt,
+          userId,
+        },
+      );
+    } catch (error) {
+      throw error;
+      return false;
+    }
+  }
+
   async updatePost(id, { title, content, featuredImage, slug, status }) {
     try {
-      await this.tablesDb.updateRow(
+      return await this.tablesDb.updateRow(
         conf.appwriteDatabaseId,
         conf.appwriteTableId,
         id,
@@ -88,6 +107,7 @@ export class Service {
           status,
         },
       );
+      return true;
     } catch (error) {
       throw error;
       return false;
@@ -96,7 +116,7 @@ export class Service {
 
   async deletePost(id) {
     try {
-      await this.tablesDb.deleteRow(
+      return await this.tablesDb.deleteRow(
         conf.appwriteDatabaseId,
         conf.appwriteTableId,
         id,

@@ -3,7 +3,8 @@ import { Link } from "react-router-dom";
 import { Button, Container, PostCard } from "../components";
 import authService from "../appwrite/config";
 import { useDispatch, useSelector } from "react-redux";
-import { setError, setPosts as setPostsInStore } from "../store/postsSlice";
+import { setError, setPosts } from "../store/postsSlice";
+import { LogOut } from "lucide-react";
 
 const Home = () => {
   const userStatus = useSelector((state) => state.auth.status);
@@ -16,11 +17,10 @@ const Home = () => {
       .getPosts()
       .then((posts) => {
         if (posts) {
-          dispatch(setPostsInStore(posts.rows));
+          dispatch(setPosts(posts.rows));
         }
       })
-      .catch((error) => dispatch(setError(error.message)))
-      .finally(() => setMessage("Create your First Post"));
+      .catch((error) => dispatch(setError(error.message)));
   }, []);
 
   return (
@@ -144,12 +144,12 @@ const Home = () => {
             </div>
 
             <div className="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3 lg:gap-8">
-              {!allPosts.lenght === 0 ? (
+              {allPosts.length === 0 ? (
+                <h1>{message}</h1>
+              ) : (
                 allPosts
                   .slice(0, 3)
                   .map((post) => <PostCard key={post.$id} {...post} />)
-              ) : (
-                <h1>{message}</h1>
               )}
             </div>
           </section>

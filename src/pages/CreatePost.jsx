@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { Container, PostForm } from "../components";
 import { setError, setPosts as setPostsInStore } from "../store/postsSlice";
 import { useDispatch } from "react-redux";
+import authService from "../appwrite/config";
 
 const CreatePost = () => {
   const dispatch = useDispatch();

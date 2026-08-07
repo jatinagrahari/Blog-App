@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import AppwriteService from "../appwrite/config";
 import { useSelector } from "react-redux";
-import { Container, LoadingScreen } from "../components";
+import { Container, LoadingScreen, PostCard } from "../components";
 import parse from "html-react-parser";
 import { Link, useNavigate, useParams } from "react-router-dom";
 
@@ -10,7 +10,6 @@ const Post = () => {
   const userData = useSelector((state) => state.auth.userData);
   const navigate = useNavigate();
   const { id } = useParams();
-
   const isAuthor = post && userData ? post.userId === userData.$id : false;
 
   useEffect(() => {
@@ -38,89 +37,117 @@ const Post = () => {
   return (
     <section className="bg-linear-to-b from-gray-50 to-white py-20">
       <Container>
-        <div className="mx-auto max-w-4xl">
-          {/* Title */}
-          <h1 className="text-5xl font-extrabold leading-tight tracking-tight text-gray-900 md:text-6xl">
-            {post.title}
-          </h1>
+        <div className="mx-auto max-w-5xl">
+          <Link
+            to="/all-posts"
+            className="text-sm font-medium text-gray-500 transition hover:text-green-600"
+          >
+            ← Back to Articles
+          </Link>
 
-          {/* Meta */}
-          <div className="mt-8 flex flex-wrap items-center gap-5 border-b border-gray-200 pb-8">
-            <div className="flex h-12 w-12 items-center justify-center rounded-full bg-green-600 text-lg font-bold text-white">
-              {userData?.name?.charAt(0).toUpperCase() || "U"}
-            </div>
+          <header className="mt-10">
+            <p className="text-sm font-medium uppercase tracking-[0.2em] text-green-600">
+              Blog •{" "}
+              {new Date(post.$createdAt).toLocaleDateString("en-US", {
+                month: "long",
+                year: "numeric",
+              })}
+            </p>
 
-            <div>
-              <p className="font-semibold text-gray-900">
-                {userData?.name || "Anonymous"}
-              </p>
+            <h1 className="mt-5 text-5xl md:text-6xl font-black leading-tight tracking-tight text-gray-900">
+              {post.title}
+            </h1>
 
-              <p className="text-sm text-gray-500">Published Article</p>
-            </div>
+            <p className="mt-6 max-w-3xl text-xl leading-8 text-gray-600">
+              {/* Optional excerpt */}
+            </p>
+          </header>
 
-            {isAuthor && (
-              <div className="ml-auto flex gap-3">
-                <button
-                  className="rounded-xl border border-gray-300 bg-white px-5 py-2 font-medium text-gray-700 transition hover:bg-gray-100"
-                  onClick={() =>
-                    navigate(`/edit-post/${post.$id}`, {
-                      state: { post },
-                    })
-                  }
-                >
-                  Edit
-                </button>
-
-                <button
-                  onClick={deletePost}
-                  className="rounded-xl bg-red-600 px-5 py-2 font-medium text-white transition hover:bg-red-700"
-                >
-                  Delete
-                </button>
+          <div className="mt-10 flex items-center justify-between gap-6 border-b border-gray-200 pb-10">
+            <div className="flex items-center gap-4">
+              <div className="flex h-14 w-14 items-center justify-center rounded-full bg-green-600 text-xl font-bold text-white">
+                {userData?.name?.charAt(0).toUpperCase() || "U"}
               </div>
-            )}
+
+              <div>
+                <p className="font-semibold text-gray-900">
+                  {userData?.name || "Anonymous"}
+                </p>
+              </div>
+              <p className="text-sm text-gray-500">
+                {new Date(post.$createdAt).toLocaleDateString("en-US", {
+                  month: "long",
+                  year: "numeric",
+                })}
+              </p>
+            </div>
           </div>
 
-          {/* Hero Image */}
-          <div className="mt-12 overflow-hidden rounded-4xl shadow-xl">
+          <div className="mt-14 overflow-hidden rounded-3xl shadow-xl">
             <img
               src={AppwriteService.getFilePreview(post.featuredImage)}
               alt={post.title}
-              className="h-112.5 w-full object-cover transition duration-700 hover:scale-105"
+              className="aspect-video w-full object-cover"
             />
           </div>
 
-          {/* Article */}
-          <article className="mx-auto mt-16 max-w-3xl">
+          <article className="mx-auto mt-20 max-w-3xl">
             <div
               className="
-                prose
-                prose-lg
-                max-w-none
-
-                prose-headings:font-bold
-                prose-headings:text-gray-900
-
-                prose-p:text-gray-700
-                prose-p:leading-8
-
-                prose-img:rounded-2xl
-                prose-img:shadow-lg
-
-                prose-a:text-green-600
-                prose-strong:text-gray-900
-
-                prose-blockquote:border-l-green-500
-                flex flex-col
-                "
+              prose prose-lg lg:prose-xl max-w-none
+              prose-headings:font-bold
+              prose-headings:text-gray-900
+              prose-headings:mt-14
+              prose-headings:mb-6
+              prose-p:leading-9
+              prose-p:text-gray-700
+              prose-p:my-8
+              prose-img:rounded-3xl
+              prose-img:shadow-lg
+              prose-img:my-12
+              prose-blockquote:border-l-4
+              prose-blockquote:border-green-600
+            "
             >
-              <span className="text-xl font-semibold">Content :</span>
-              <br />
               {parse(post.content)}
             </div>
           </article>
 
-          {/* Bottom Actions */}
+          <hr className="mx-auto mt-20 max-w-7xl border-gray-200" />
+
+          <section className="mx-auto mt-10 max-w-3xl">
+            <h3 className="text-lg font-semibold">Tags</h3>
+
+            <div className="mt-5 flex flex-wrap gap-3">
+              <span className="rounded-full border px-4 py-2 text-sm">
+                React
+              </span>
+              <span className="rounded-full border px-4 py-2 text-sm">
+                Appwrite
+              </span>
+              <span className="rounded-full border px-4 py-2 text-sm">
+                JavaScript
+              </span>
+            </div>
+          </section>
+
+          {isAuthor && (
+            <section className="mx-auto mt-20 flex max-w-7xl justify-end gap-4 border-t pt-10">
+              <button
+                className="rounded-xl border px-6 py-3 cursor-pointer"
+                onClick={() => navigate(`/edit-post/${post.$id}`)}
+              >
+                Edit Post
+              </button>
+
+              <button
+                className="rounded-xl bg-red-600 px-6 py-3 text-white cursor-pointer"
+                onClick={deletePost}
+              >
+                Delete Post
+              </button>
+            </section>
+          )}
         </div>
       </Container>
     </section>
