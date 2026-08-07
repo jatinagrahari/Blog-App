@@ -31,7 +31,7 @@ export class Service {
         },
       );
     } catch (error) {
-      console.log("Appwrite serive :: getCurrentUser :: error", error);
+      throw error;
       return false;
     }
   }
@@ -44,7 +44,7 @@ export class Service {
         id,
       );
     } catch (error) {
-      console.log("Appwrite serive :: getCurrentUser :: error", error);
+      throw error;
       return false;
     }
   }
@@ -57,7 +57,7 @@ export class Service {
         queries,
       );
     } catch (error) {
-      console.log("Appwrite serive :: getCurrentUser :: error", error);
+      throw error;
       return false;
     }
   }
@@ -69,7 +69,7 @@ export class Service {
         conf.appwriteTableId,
       );
     } catch (error) {
-      console.log("Appwrite serive :: getCurrentUser :: error", error);
+      throw error;
       return false;
     }
   }
@@ -89,7 +89,7 @@ export class Service {
         },
       );
     } catch (error) {
-      console.log("Appwrite serive :: getCurrentUser :: error", error);
+      throw error;
       return false;
     }
   }
@@ -102,7 +102,7 @@ export class Service {
         id,
       );
     } catch (error) {
-      console.log("Appwrite serive :: getCurrentUser :: error", error);
+      throw error;
       return false;
     }
   }
@@ -117,7 +117,7 @@ export class Service {
         file,
       );
     } catch (error) {
-      console.log("Appwrite serive :: getCurrentUser :: error", error);
+      throw error;
       return false;
     }
   }
@@ -126,7 +126,7 @@ export class Service {
     try {
       return this.storage.getFileView(conf.appwriteStorageId, fileId);
     } catch (error) {
-      console.log("Appwrite serive :: getCurrentUser :: error", error);
+      throw error;
       return false;
     }
   }
@@ -136,7 +136,7 @@ export class Service {
       await this.storage.deleteFile(conf.appwriteStorageId, fileId);
       return true;
     } catch (error) {
-      console.log("Appwrite serive :: getCurrentUser :: error", error);
+      throw error;
       return false;
     }
   }

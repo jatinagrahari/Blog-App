@@ -9,14 +9,18 @@ const Home = () => {
   const userStatus = useSelector((state) => state.auth.status);
   const dispatch = useDispatch();
   const allPosts = useSelector((state) => state.posts.allPosts);
+  const [message, setMessage] = useState(null);
 
   useEffect(() => {
     authService
       .getPosts()
       .then((posts) => {
-        dispatch(setPostsInStore(posts.rows));
+        if (posts) {
+          dispatch(setPostsInStore(posts.rows));
+        }
       })
-      .catch((error) => dispatch(setError(error.message)));
+      .catch((error) => dispatch(setError(error.message)))
+      .finally(() => setMessage("Create your First Post"));
   }, []);
 
   return (
@@ -140,9 +144,13 @@ const Home = () => {
             </div>
 
             <div className="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3 lg:gap-8">
-              {allPosts.slice(0, 3).map((post) => (
-                <PostCard key={post.$id} {...post} />
-              ))}
+              {!allPosts.lenght === 0 ? (
+                allPosts
+                  .slice(0, 3)
+                  .map((post) => <PostCard key={post.$id} {...post} />)
+              ) : (
+                <h1>{message}</h1>
+              )}
             </div>
           </section>
         </Container>
