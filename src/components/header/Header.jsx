@@ -14,7 +14,7 @@ function Header() {
   const userName = useSelector((state) =>
     state.auth.userData ? state.auth.userData.name : null,
   );
-  console.log(open);
+  // console.log(open);
 
   useEffect(() => {
     function handleClick(e) {

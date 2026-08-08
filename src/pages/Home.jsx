@@ -15,6 +15,8 @@ const Home = () => {
   // const isAuthor = post && userData ? post.userId === userData.$id : false;
 
   useEffect(() => {
+    if (!userStatus) return;
+
     authService
       .userPosts(user.$id)
       .then((posts) => {

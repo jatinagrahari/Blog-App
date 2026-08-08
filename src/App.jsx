@@ -21,12 +21,12 @@ function App() {
           dispatch(authLogout());
         }
       } catch (error) {
-        return null;
+        dispatch(authLogout());
       }
     };
-    checkUser();
+
     checkUser().finally(() => setLoading(false));
-  }, []);
+  }, [dispatch]);
   if (loading) {
     return <LoadingScreen />;
   }
