@@ -21,6 +21,7 @@ import {
   CreatePost,
   EditPost,
   UserDashboard,
+  VerifyEmail,
 } from "./pages";
 import { AuthLayout } from "./components";
 
@@ -91,6 +92,8 @@ const router = createBrowserRouter(
           </AuthLayout>
         }
       />
+
+      <Route path="/verify-email" element={<VerifyEmail />} />
     </Route>,
   ),
 );

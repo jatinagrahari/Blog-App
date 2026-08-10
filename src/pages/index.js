@@ -7,6 +7,7 @@ import Post from "./Post";
 import CreatePost from "./CreatePost";
 import EditPost from "./EditPost";
 import UserDashboard from "./UserDashboard";
+import VerifyEmail from "./VerifyEmail";
 
 export {
   Home,
@@ -18,4 +19,5 @@ export {
   CreatePost,
   EditPost,
   UserDashboard,
+  VerifyEmail,
 };

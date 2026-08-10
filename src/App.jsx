@@ -5,6 +5,8 @@ import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { login as authLogin, logout as authLogout } from "./store/authSlice";
 import { Layout, LoadingScreen } from "./components";
+import { ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 function App() {
   const navigate = useNavigate();
@@ -33,6 +35,7 @@ function App() {
   return (
     <>
       <Layout />
+      <ToastContainer position="top-center" autoClose={3000} />
     </>
   );
 }

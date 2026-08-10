@@ -15,16 +15,13 @@ const Signup = () => {
           </div>
 
           <h2 className="text-2xl font-bold text-gray-900">
-            Registration Successful!
+            Registration Successful! Check your email
           </h2>
 
           <p className="mt-3 text-sm leading-6 text-gray-600">
             Thank you for creating your account. Your registration has been
-            completed successfully.
-          </p>
-
-          <p className="mt-2 text-sm text-gray-600">
-            Please sign in to continue and start exploring the platform.
+            completed successfully. <br /> We've sent a verification link to
+            your email address. Please verify your email Or sign in.
           </p>
 
           <Button

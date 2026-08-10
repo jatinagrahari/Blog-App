@@ -14,9 +14,12 @@ const UserDashboard = () => {
 
   useEffect(() => {
     appwriteService.getPosts().then((posts) => {
-      setallPosts(posts.rows);
+      if (posts && user) {
+        const userPosts = posts.rows.filter((post) => post.userId === user.$id);
+        setallPosts(userPosts);
+      }
     });
-  }, []);
+  }, [user]);
 
   const sections = {
     profile: (

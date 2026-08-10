@@ -13,6 +13,7 @@ const Logout = () => {
     try {
       authService.logOut();
       dispatch(authLogout());
+      navigate("/");
     } catch (error) {
       console.log(error);
     }

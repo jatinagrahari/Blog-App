@@ -4,21 +4,51 @@ import { useNavigate } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import { useDispatch } from "react-redux";
 import authService from "../appwrite/auth";
+import { toast } from "react-toastify";
 
 const Signup = ({ onComplete }) => {
   const { register, handleSubmit } = useForm();
   const [errors, setErrors] = useState(null);
   const dispatch = useDispatch();
+  const [isAgree, setisAgree] = useState(false);
 
   const signup = async (data) => {
     setErrors("");
+    if (data.password !== data.confirmPassword) {
+      toast.error("Password & confirm Password do not match");
+      return;
+    }
+
+    if (!isAgree) {
+      toast.error("Please accept the terms and conditions");
+      return;
+    }
+
     try {
       const user = await authService.createAccount(data);
-      console.log(user);
+      // if (user) {
+      // await authService.sendVerificationEmail();
+      // toast.success(
+      //   "Account created! Please check your email to verify your account.",
+      // );
+      // onComplete(true);
       if (user) {
+        await authService.login({
+          email: data.email,
+          password: data.password,
+        });
+
+        await authService.sendVerificationEmail();
+
+        await authService.logOut();
+
+        toast.success(
+          "Account created! Please check your email to verify your account.",
+        );
+
         onComplete(true);
       }
-      // navigate("/");
+      // }
     } catch (error) {
       setErrors(error.message);
     }
@@ -85,16 +115,21 @@ const Signup = ({ onComplete }) => {
           />
 
           {/* Confirm Password */}
-          {/* <Input
-              label={"Confirm Password"}
-              type={"password"}
-              placeholder={"Confirm Password"}
-            /> */}
+          <Input
+            label={"Confirm Password"}
+            type={"password"}
+            placeholder={"Confirm Password"}
+            {...register("confirmPassword", {
+              required: true,
+            })}
+          />
         </div>
         {/* terms */}
-        {/* <div className="flex items-start gap-3 py-5">
+        <div className="flex items-start gap-3 py-5">
           <input
             type="checkbox"
+            checked={isAgree}
+            onChange={(e) => setisAgree(e.target.checked)}
             className="mt-1 h-4 w-4 rounded border-gray-300 accent-green-700"
           />
           <p className="text-sm text-gray-600">
@@ -107,7 +142,7 @@ const Signup = ({ onComplete }) => {
               Privacy Policy
             </span>
           </p>
-        </div> */}
+        </div>
         {/* Button */}
         <button
           type="submit"
