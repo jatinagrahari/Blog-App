@@ -31,7 +31,7 @@ export class AuthService {
   async sendVerificationEmail() {
     try {
       const response = await this.account.createVerification(
-        "http://localhost:5173/verify-email",
+        "https://appblogstack.netlify.app/verify-email",
       );
 
       return response;
