@@ -15,7 +15,15 @@ export class Service {
     this.tablesDb = new TablesDB(this.client);
   }
 
-  async createPost({ title, content, slug, featuredImage, status, userId }) {
+  async createPost({
+    title,
+    content,
+    slug,
+    featuredImage,
+    status,
+    userId,
+    authorName,
+  }) {
     try {
       return await this.tablesDb.createRow(
         conf.appwriteDatabaseId,
@@ -28,6 +36,7 @@ export class Service {
           featuredImage,
           status,
           userId,
+          authorName,
         },
       );
     } catch (error) {

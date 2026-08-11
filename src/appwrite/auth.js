@@ -41,7 +41,7 @@ export class AuthService {
     }
   }
 
-  async verifyEmail(userId, secret) {
+  async verifyEmail({ userId, secret }) {
     try {
       const response = await this.account.updateVerification(userId, secret);
 

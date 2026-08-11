@@ -11,7 +11,8 @@ const AllPosts = () => {
 
   useEffect(() => {
     authService
-      .userPosts(user.$id)
+      // .userPosts(user.$id)
+      .getPosts()
       .then((posts) => {
         if (posts) {
           dispatch(setPosts(posts.rows));

@@ -26,12 +26,6 @@ const Signup = ({ onComplete }) => {
 
     try {
       const user = await authService.createAccount(data);
-      // if (user) {
-      // await authService.sendVerificationEmail();
-      // toast.success(
-      //   "Account created! Please check your email to verify your account.",
-      // );
-      // onComplete(true);
       if (user) {
         await authService.login({
           email: data.email,

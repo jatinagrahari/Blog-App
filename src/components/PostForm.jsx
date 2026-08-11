@@ -37,7 +37,6 @@ const PostForm = ({ post, onSubmitForm }) => {
       if (dbPost) {
         if (file) {
           await AppwriteService.deleteFile(post.featuredImage);
-
           navigate(`/post/${dbPost.$id}`);
           setSubmitScreen(false);
         }
@@ -48,14 +47,13 @@ const PostForm = ({ post, onSubmitForm }) => {
       const file = data.image[0]
         ? await AppwriteService.uploadFile(data.image[0])
         : null;
-      //   const uploadFile = await AppwriteService.uploadFile(file);
-
       if (file) {
         const fileId = file.$id;
         data.featuredImage = fileId;
         const createPost = await AppwriteService.createPost({
           ...data,
           userId: user.$id,
+          authorName: user.name,
         });
         if (createPost) {
           await onSubmitForm();

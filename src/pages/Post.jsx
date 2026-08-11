@@ -66,12 +66,14 @@ const Post = () => {
           <div className="mt-10 flex items-center justify-between gap-6 border-b border-gray-200 pb-10">
             <div className="flex items-center gap-4">
               <div className="flex h-14 w-14 items-center justify-center rounded-full bg-green-600 text-xl font-bold text-white">
-                {userData?.name?.charAt(0).toUpperCase() || "U"}
+                {post?.authorName?.charAt(0).toUpperCase() || "U"}
               </div>
 
               <div>
                 <p className="font-semibold text-gray-900">
-                  {userData?.name || "Anonymous"}
+                  {isAuthor
+                    ? `${post?.authorName} (You)`
+                    : post?.authorName || "Anonymous"}
                 </p>
               </div>
               <p className="text-sm text-gray-500">
