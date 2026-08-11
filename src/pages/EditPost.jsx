@@ -1,18 +1,25 @@
 import React, { useEffect, useState } from "react";
 import { Container, PostForm, LoadingScreen } from "../components";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import authService from "../appwrite/config";
 import appwriteService from "../appwrite/config";
+import { useSelector } from "react-redux";
+import { toast } from "react-toastify";
 
 const EditPost = () => {
   const [post, setPost] = useState(null);
   const id = useParams();
+  const navigate = useNavigate();
+  const user = useSelector((state) => state.auth.userData);
 
   useEffect(() => {
     appwriteService.getPost(id.id).then((e) => {
-      if (e) {
-        setPost(e);
+      if (e.userId !== user.$id) {
+        toast.error("access denied");
+        navigate("/");
+        return;
       }
+      setPost(e);
     });
   }, [id]);
 
